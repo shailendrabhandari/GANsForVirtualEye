@@ -1,7 +1,24 @@
 import torch
 from torch import nn
 
-s
+
+# Initialize weights as per DCGAN specifications
+def weights_init(m):
+    """
+    This function initializes the model weights randomly from a 
+    Normal distribution. Follows the DCGAN paper specification.
+    Source: https://arxiv.org/pdf/1511.06434.pdf
+    """
+    classname = m.__class__.__name__
+    if classname.find('Conv') != -1:
+        nn.init.normal_(m.weight.data, 0.0, 0.02)
+    elif classname.find('BatchNorm') != -1:
+        nn.init.normal_(m.weight.data, 1.0, 0.02)
+        nn.init.constant_(m.bias.data, 0)
+
+# Define periodogram function
+def periodogram(tt):
+    return torch.log(torch.mean(torch.fft.fft(tt, 200).abs(), 0))
 
 # CNN Generator 1
 class CNNGenerator1(nn.Module):

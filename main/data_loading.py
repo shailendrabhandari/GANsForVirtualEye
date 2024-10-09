@@ -48,6 +48,27 @@ def calculate_velocities(xpl, ypl, xpr, ypr, dt=1/1000):
 
     return velocity_left, velocity_right
 
+def remove_blink_saccades(velocity_data, blink_removal_window=50):
+    """
+    Removes data points around blinks by expanding 50 ms before and after each blink.
+    """
+    # Forward fill missing values to handle NaNs
+    velocity_data['velocity_left'] = velocity_data['velocity_left'].ffill()
+
+    # Identify blink positions where NaN values were originally present in velocity_left
+    blink_indices = velocity_data.index[velocity_data['velocity_left'].isna()].tolist()
+
+    # Create a set of indices to remove, expanding each blink index by the specified window
+    indices_to_remove = set()
+    for blink_index in blink_indices:
+        start_index = max(0, blink_index - blink_removal_window)
+        end_index = min(len(velocity_data) - 1, blink_index + blink_removal_window)
+        indices_to_remove.update(range(start_index, end_index + 1))
+
+    # Filter out the identified indices from the dataset
+    velocity_data_filtered = velocity_data.drop(indices_to_remove).reset_index(drop=True)
+    return velocity_data_filtered
+
 def normalize_velocity(velocity_data):
     """
     Normalizes the velocity data using MinMaxScaler and returns a normalized DataFrame.
@@ -74,9 +95,6 @@ def create_sequences(data, seq_length):
         )
     else:
         return np.array([])
-
-import torch
-from torch.utils.data import Dataset, DataLoader
 
 class VelocityDataset(Dataset):
     def __init__(self, sequences):
@@ -111,3 +129,14 @@ def create_dataloader(sequences, batch_size=128, num_workers=0, prefetch_factor=
     )
 
     return train_loader
+
+# Ensure all functions are exported
+__all__ = [
+    'load_data',
+    'create_sequences',
+    'normalize_velocity',
+    'filter_and_assign_features',
+    'calculate_velocities',
+    'remove_blink_saccades',
+    'create_dataloader'
+]

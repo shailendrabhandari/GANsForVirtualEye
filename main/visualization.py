@@ -173,11 +173,6 @@ visualize_results(generator1, train_loader, 'model_1', input_channels, DEVICE)
 visualize_results(generator2, train_loader, 'model_2', input_channels, DEVICE)
 
 
-
-
-
-
-
 # Function to generate and compare histograms of real vs generated data
 def plot_real_vs_generated_hist(generator, train_loader, latent_dim, model_name, device):
     # Fetch all real data from the DataLoader

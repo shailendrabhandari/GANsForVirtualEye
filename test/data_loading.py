@@ -41,12 +41,7 @@ def calculate_velocities(xpl, ypl, xpr, ypr, dt=1/1000):
     delta_ypr = np.diff(ypr, prepend=ypr[0])
 
     distances_left = np.sqrt(delta_xpl**2 + delta_ypl**2)
-    distances_right = np.sqrt(delta_xpr**2 + delta_ypr**2)
-
-    velocity_left = distances_left / dt
-    velocity_right = distances_right / dt
-
-    return velocity_left, velocity_right
+  Springer Nature LaTeX Template (2)   return velocity_left, velocity_right
 
 def normalize_velocity(velocity_data):
     """

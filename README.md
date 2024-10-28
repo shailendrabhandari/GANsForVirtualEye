@@ -28,10 +28,10 @@ This project focuses on analyzing real and generated eye-tracking velocity data 
 
 ### 2. Training Models
 
-#### DCGAN Models:
-- **Model Definition**: A DCGAN generator and discriminator were defined and trained on normalized velocity data.
+#### GANs Models:
+- **Model Definition**: AGAN generator and discriminator were defined and trained on normalized velocity data.
 - **Training**: The models were trained using the standard GAN training loop.
-  - **Standard DCGAN**: Regular GAN training.
+  - **Standard GAN**: Regular GAN training.
   - **DCGAN with Spectral Loss**: Included additional spectral loss in the training objective.
   
 #### HMM Models:
@@ -77,7 +77,7 @@ This project focuses on analyzing real and generated eye-tracking velocity data 
    - Modify `running.py` to ensure the correct path to your eye-tracking dataset. The dataset should have the `velocity_left` data ready.
    
 2. **Step 2: Train Models**
-   - Run `running.py` to load data, train the **DCGAN** models and **HMM** models, and generate the synthetic data:
+   - Run `running.py` to load data, train the **GAN** models and **HMM** models, and generate the synthetic data:
      ```bash
      python3 running.py
      ```
@@ -98,17 +98,17 @@ This project focuses on analyzing real and generated eye-tracking velocity data 
 ## Results Folder
 All visualizations (histograms, JS divergence, and autocorrelation plots) are saved in the `results/` directory.
 
-- **Autocorrelation Plots**: Compare real data with generated data from DCGAN and HMM models.
+- **Autocorrelation Plots**: Compare real data with generated data from GAN and HMM models.
   - `Autocorrelation_Real_vs_Generated.pdf`
   
-- **Histograms**: Compare real data and generated data using HMMs and DCGAN.
+- **Histograms**: Compare real data and generated data using HMMs and GAN.
   - `RealVSGenerated_HMM_2HS.pdf` (HMM with 2 hidden states)
   - `RealVSGenerated_HMM_3HS.pdf` (HMM with 3 hidden states)
 
 - **Saved Models**: Trained models for later use.
-  - `G_SD_model_1.pt`: Generator for DCGAN.
-  - `G_SD_model_2.pt`: Generator for DCGAN with spectral loss.
-  - `D_SD_model_1.pt`: Discriminator for DCGAN.
+  - `G_SD_model_1.pt`: Generator for GAN.
+  - `G_SD_model_2.pt`: Generator for GAN with spectral loss.
+  - `D_SD_model_1.pt`: Discriminator for GAN.
 
 ---
 

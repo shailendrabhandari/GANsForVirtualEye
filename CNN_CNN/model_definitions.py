@@ -1,5 +1,6 @@
 import torch
 from torch import nn
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 # Initialize weights as per DCGAN specifications
@@ -112,3 +113,46 @@ class CNNDiscriminator2(nn.Module):
 
     def forward(self, x):
         return self.cnn(x).squeeze(1)
+    
+# Define the LSTM Generator
+class LSTMGenerator(nn.Module):
+    def __init__(self, input_channels=256, output_channels=200):
+        super(LSTMGenerator, self).__init__()
+        self.lstm = nn.LSTM(input_channels, 16, 1, batch_first=True, bias=True)
+        self.linear = nn.Sequential(
+            nn.ReLU(),
+            nn.Linear(16, 16),
+            nn.ReLU(),
+            nn.Linear(16, output_channels),
+            nn.Tanh()
+        )
+
+    def forward(self, x):
+        batch_size = x.size(0)
+        h_0 = torch.randn(1, batch_size, 16).to(device)  
+        c_0 = torch.randn(1, batch_size, 16).to(device)  
+
+        out, _ = self.lstm(x, (h_0, c_0))  
+        out = self.linear(out)  
+        return torch.cumsum(out, dim=1)
+
+# Define the LSTM Discriminator
+class LSTMDiscriminator(nn.Module):
+    def __init__(self, input_size=200):
+        super(LSTMDiscriminator, self).__init__()
+        self.lstm = nn.LSTM(input_size, 16, 1, batch_first=True)
+        self.linear = nn.Sequential(
+            nn.Linear(16, 16),
+            nn.ReLU(),
+            nn.Linear(16, 1),
+            nn.Sigmoid()
+        )
+
+    def forward(self, x):
+        batch_size = x.size(0)
+        h_0 = torch.randn(1, batch_size, 16).to(device)  
+        c_0 = torch.randn(1, batch_size, 16).to(device)  
+
+        out, _ = self.lstm(x, (h_0, c_0))  
+        out = self.linear(out)  
+        return torch.mean(out, dim=1)  

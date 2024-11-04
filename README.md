@@ -304,15 +304,15 @@ This project is licensed under the MIT License. See the [LICENSE](https://github
 
 For questions or suggestions, please contact:
 
-- **Your Name**
+- **Shailendra Bhandari**
 - **Email**: shailendra.bhandari@oslomet.no
-- **GitHub**: [your_username](https://github.com/shailendrabhandari)
+- **GitHub**: [shailendrabhandari](https://github.com/shailendrabhandari)
 
 
 
 ## **Acknowledgments**
 
-- Thank you to all contributors and users who have helped improve this package.
+- Thank you to all contributors and the AI lab teams who helped improve this package.
 - Inspired by research on GANs for time series generation.
 
 ---

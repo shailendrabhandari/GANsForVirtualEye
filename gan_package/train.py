@@ -37,7 +37,7 @@ def train_gan(train_set, device, save_path, nb_epoch=120, batch_size=128, latent
     optim_d = optim.Adam(discriminator.parameters(), lr=lr, betas=(0.5, 0.999))
     optim_g = optim.Adam(generator.parameters(), lr=lr, betas=(0.5, 0.999))
 
-    # Training loop
+    # Training the loop
     mse_scores = []
     js_scores = []
 
@@ -57,10 +57,10 @@ def train_gan(train_set, device, save_path, nb_epoch=120, batch_size=128, latent
             elif discriminator_model.startswith('CNN'):
                 pass  # x is already in shape (batch_size, 1, seq_length)
 
-            #### TRAIN DISCRIMINATOR ####
+            #### TRAIN DISCRIMINATOR #######
             discriminator.zero_grad()
 
-            # Real data
+            
             pred_real = discriminator(x)
             target_real = torch.ones((batch_size, 1), device=device)
             loss_real = criterion(pred_real, target_real)

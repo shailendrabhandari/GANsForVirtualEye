@@ -1,4 +1,3 @@
-# utils.py
 import torch
 import numpy as np
 from scipy.special import rel_entr
@@ -6,7 +5,7 @@ from scipy.special import rel_entr
 def periodogram(tt):
     # tt: Tensor of shape (batch_size, features, seq_length)
     if tt.dim() == 3 and tt.size(1) != 1:
-        # Assuming shape is (batch_size, features, seq_length), no need to permute
+        # If shape is (batch_size, features, seq_length), no need to permute
         pass
     elif tt.dim() == 3 and tt.size(1) == 1:
         # If shape is (batch_size, 1, seq_length), no need to permute

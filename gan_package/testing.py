@@ -15,12 +15,10 @@ def evaluate_gan(generator, all_real_data, device, save_path, latent_dim=256):
         # Shape: (num_samples, channels, seq_length)
         seq_length = all_real_data.shape[2]
     elif len(all_real_data.shape) == 2:
-        # Shape: (num_samples, seq_length)
         seq_length = all_real_data.shape[1]
     else:
         raise ValueError("Unexpected shape for all_real_data: {}".format(all_real_data.shape))
 
-    # Prepare latent vectors
     num_samples = len(all_real_data)
     if isinstance(generator, LSTMGenerator):
         z = torch.randn((num_samples, seq_length, latent_dim), device=device)
@@ -51,7 +49,6 @@ def evaluate_gan(generator, all_real_data, device, save_path, latent_dim=256):
     min_value = min(log_positive_real_data.min(), log_positive_generated_data.min())
     max_value = max(log_positive_real_data.max(), log_positive_generated_data.max())
 
-    # Create bins
     num_bins = 60
     bins = np.linspace(min_value, max_value, num_bins + 1)
 

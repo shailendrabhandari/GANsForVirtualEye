@@ -1,0 +1,609 @@
+Certainly! Below is a Python package that encapsulates your code into organized modules, including `setup.py`, `dataloader.py`, `models.py`, `train.py`, and `testing.py`. This structure makes your code modular, reusable, and easier to maintain.
+
+---
+
+## **Package Structure**
+
+```
+my_gan_package/
+├── my_gan_package/
+│   ├── __init__.py
+│   ├── dataloader.py
+│   ├── models.py
+│   ├── train.py
+│   ├── testing.py
+│   ├── utils.py
+├── setup.py
+├── requirements.txt
+```
+
+---
+
+## **1. `setup.py`**
+
+This file is used to specify package metadata and dependencies for installation.
+
+```python
+from setuptools import setup, find_packages
+
+setup(
+    name='my_gan_package',
+    version='0.1.0',
+    author='Your Name',
+    author_email='your.email@example.com',
+    description='GAN for Time Series Generation',
+    packages=find_packages(),
+    install_requires=[
+        'numpy',
+        'torch',
+        'torchvision',
+        'matplotlib',
+        'scipy',
+        'sklearn',
+        'pandas',
+        'progressbar2'
+    ],
+    python_requires='>=3.6',
+)
+```
+
+---
+
+## **2. `requirements.txt`**
+
+List of dependencies for your project.
+
+```
+numpy
+torch
+torchvision
+matplotlib
+scipy
+sklearn
+pandas
+progressbar2
+```
+
+---
+
+## **3. `my_gan_package/__init__.py`**
+
+An empty file to indicate that `my_gan_package` is a Python package.
+
+```python
+# __init__.py
+```
+
+---
+
+## **4. `my_gan_package/dataloader.py`**
+
+This module handles data loading and preprocessing.
+
+```python
+import os
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler
+from torch.utils.data import Dataset
+
+class VelocityDataset(Dataset):
+    def __init__(self, sequences):
+        self.sequences = sequences
+
+    def __len__(self):
+        return len(self.sequences)
+
+    def __getitem__(self, idx):
+        sample = self.sequences[idx]
+        sample = torch.from_numpy(sample).float()  # Convert to Float
+        sample = sample.unsqueeze(0)  # Add channel dimension
+        return sample
+
+def load_and_preprocess_data(folder_path, remove_first_n_points=250, remove_nanbefore=250):
+    # Get list of all .txt files in the folder
+    files = [file for file in os.listdir(folder_path) if file.endswith('.txt')]
+
+    # Initialize a list to store the data from all files
+    all_data = []
+
+    # Load data from each file
+    for file in files:
+        file_path = os.path.join(folder_path, file)
+        try:
+            data = np.loadtxt(file_path)
+            all_data.append(data)
+        except Exception as e:
+            print(f"Error loading {file}: {e}")
+
+    # Parameters
+    # Lists to store data
+    vS_list = []
+    for idx, data in enumerate(all_data):
+        if data.shape[0] > data.shape[1]:
+            data = data.T
+        T_i = data[0]
+        X_i = data[1]
+        Y_i = data[2]
+        saccade_i = data[3]
+
+        # Remove the first 'remove_first_n_points' data points
+        T_i = T_i[remove_first_n_points:]
+        X_i = X_i[remove_first_n_points:]
+        Y_i = Y_i[remove_first_n_points:]
+        saccade_i = saccade_i[remove_first_n_points:]
+
+        # Calculate differences
+        d_X_i = np.diff(X_i)
+        d_Y_i = np.diff(Y_i)
+        d_T_i = np.diff(T_i)
+        d_S_i = np.sqrt(d_X_i**2 + d_Y_i**2)  # Distance
+
+        # Handle NaNs in differences
+        Nan_array = (~np.isnan(d_X_i)) & (~np.isnan(d_Y_i)) & (~np.isnan(d_T_i))
+        # Identify indices where NaNs occur
+        nan_indices = np.where(~Nan_array)[0]
+        nan_mask = np.zeros_like(Nan_array, dtype=bool)
+        for nan_idx in nan_indices:
+            start = max(0, nan_idx - remove_nanbefore)
+            end = min(len(Nan_array), nan_idx + remove_nanbefore + 1)
+            nan_mask[start:end] = True
+
+        valid_indices = ~nan_mask
+        dX_i_filtered = d_X_i[valid_indices]
+        dY_i_filtered = d_Y_i[valid_indices]
+        dT_i_filtered = d_T_i[valid_indices]
+        dS_i_filtered = d_S_i[valid_indices]
+
+        dT_i_filtered_sec = dT_i_filtered / 1000
+
+        # Remove zero or negative time intervals
+        valid_time = dT_i_filtered_sec > 0
+        dX_i_filtered = dX_i_filtered[valid_time]
+        dY_i_filtered = dY_i_filtered[valid_time]
+        dT_i_filtered_sec = dT_i_filtered_sec[valid_time]
+        dS_i_filtered = dS_i_filtered[valid_time]
+
+        # Calculate velocities
+        vS_i = dS_i_filtered / dT_i_filtered_sec
+
+        # Remove non-positive velocities
+        valid_velocity = vS_i > 0
+        vS_i = vS_i[valid_velocity]
+
+        # Append velocities to the list
+        vS_list.append(vS_i)
+
+    # Combine all velocities into one array
+    vS_all = np.concatenate(vS_list)
+
+    return vS_all
+
+def prepare_datasets(vS_all, sequence_length=200, num_sequences=11000, batch_size=128):
+    # Ensure vS_all is available and handle any NaNs
+    if len(vS_all) == 0:
+        raise ValueError("No velocities available.")
+    else:
+        # Convert to DataFrame for preprocessing
+        velocity_data = pd.DataFrame({'velocity': vS_all})
+
+        # Fill NaNs forward
+        velocity_data['velocity'] = velocity_data['velocity'].ffill()
+
+        # Normalize the data
+        scaler = MinMaxScaler()
+        velocity_array = velocity_data['velocity'].values.reshape(-1, 1)
+        velocity_data_normalized = scaler.fit_transform(velocity_array)
+        velocity_data['normalized_velocity'] = velocity_data_normalized.flatten()
+
+        # Sample sequences
+        sequences = sample_random_sequences(velocity_data['normalized_velocity'].values,
+                                            sequence_length, num_sequences)
+
+        # Split into training and test sets
+        train_sequences, test_sequences = train_test_split(
+            sequences, test_size=0.2, shuffle=True, random_state=42
+        )
+
+        # Instantiate datasets
+        train_set = VelocityDataset(train_sequences)
+        test_set = VelocityDataset(test_sequences)
+
+        return train_set, test_set, scaler
+
+def sample_random_sequences(data, seq_length, num_sequences):
+    sequences = []
+    for _ in range(num_sequences):
+        start_idx = np.random.randint(0, len(data) - seq_length)
+        seq = data[start_idx:start_idx + seq_length]
+        sequences.append(seq)
+    return np.array(sequences)
+```
+
+---
+
+## **5. `my_gan_package/models.py`**
+
+This module contains the GAN models: Generator and Discriminator.
+
+```python
+import torch
+import torch.nn as nn
+
+def weights_init(m):
+    """
+    Initialize model weights.
+    """
+    classname = m.__class__.__name__
+    if classname.find('Conv') != -1:
+        nn.init.normal_(m.weight.data, 0.0, 0.02)
+    elif classname.find('BatchNorm') != -1:
+        nn.init.normal_(m.weight.data, 1.0, 0.02)
+        nn.init.constant_(m.bias.data, 0)
+
+class CNNGenerator2(nn.Module):
+    def __init__(self, input_channels, output_channels):
+        super().__init__()
+
+        self.cnn = nn.Sequential(
+            nn.ConvTranspose1d(input_channels, 128, kernel_size=25, stride=2, padding=0, bias=False),
+            nn.BatchNorm1d(128),
+            nn.ReLU(True),
+
+            nn.ConvTranspose1d(128, 64, kernel_size=4, stride=2, padding=1, bias=False),
+            nn.BatchNorm1d(64),
+            nn.ReLU(True),
+
+            nn.ConvTranspose1d(64, 32, kernel_size=4, stride=2, padding=1, bias=False),
+            nn.BatchNorm1d(32),
+            nn.ReLU(True),
+
+            nn.ConvTranspose1d(32, 16, kernel_size=4, stride=2, padding=1, bias=False),
+            nn.BatchNorm1d(16),
+            nn.ReLU(True),
+
+            nn.Conv1d(16, 8, kernel_size=3, stride=1, padding=1, bias=False),
+            nn.ReLU(True),
+            nn.Conv1d(8, output_channels, kernel_size=3, stride=1, padding=1, bias=False),
+            nn.Tanh()
+        )
+
+    def forward(self, z):
+        out = self.cnn(z)
+        return out
+
+class CNNDiscriminator2(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+        self.cnn = nn.Sequential(
+            nn.Conv1d(1, 8, kernel_size=3, stride=1, padding=1, bias=False),
+            nn.LeakyReLU(0.2, inplace=False),
+            nn.Conv1d(8, 16, kernel_size=3, stride=1, padding=1, bias=False),
+            nn.LeakyReLU(0.2, inplace=False),
+
+            nn.Conv1d(16, 32, kernel_size=4, stride=2, padding=1, bias=False),
+            nn.BatchNorm1d(32),
+            nn.LeakyReLU(0.2, inplace=False),
+
+            nn.Conv1d(32, 64, kernel_size=4, stride=2, padding=1, bias=False),
+            nn.BatchNorm1d(64),
+            nn.LeakyReLU(0.2, inplace=False),
+
+            nn.Conv1d(64, 128, kernel_size=4, stride=2, padding=1, bias=False),
+            nn.BatchNorm1d(128),
+            nn.LeakyReLU(0.2, inplace=False),
+
+            nn.Conv1d(128, 1, kernel_size=25, stride=2, padding=0, bias=False),
+            nn.Sigmoid()
+        )
+
+    def forward(self, x):
+        out = self.cnn(x)
+        return out.squeeze(1)
+```
+
+---
+
+## **6. `my_gan_package/utils.py`**
+
+Utility functions used across modules.
+
+```python
+import torch
+import numpy as np
+from scipy.special import rel_entr
+
+def periodogram(tt):
+    periodogram = torch.mean(torch.fft.fft(tt, 200).abs(), 0)
+    return torch.log(periodogram)
+
+# Function to calculate JS divergence
+def js_divergence(P, Q):
+    _P = P / np.sum(P)
+    _Q = Q / np.sum(Q)
+    _M = 0.5 * (_P + _Q)
+    return 0.5 * (np.sum(rel_entr(_P, _M)) + np.sum(rel_entr(_Q, _M)))
+```
+
+---
+
+## **7. `my_gan_package/train.py`**
+
+This module contains the training loop.
+
+```python
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import time
+import numpy as np
+from torch.utils.data import DataLoader
+import matplotlib.pyplot as plt
+from progressbar import ProgressBar
+import os
+
+from .models import CNNGenerator2, CNNDiscriminator2, weights_init
+from .utils import periodogram, js_divergence
+
+def train_gan(train_set, device, save_path, nb_epoch=120, batch_size=128, latent_dim=256):
+    train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=True)
+
+    # Initialize models
+    generator = CNNGenerator2(input_channels=latent_dim, output_channels=1).to(device)
+    discriminator = CNNDiscriminator2().to(device)
+
+    # Apply weight initialization
+    generator.apply(weights_init)
+    discriminator.apply(weights_init)
+
+    # Loss function and optimizers
+    criterion = nn.BCELoss()
+    lr = 0.0002
+    optim_d = optim.Adam(discriminator.parameters(), lr=lr, betas=(0.5, 0.999))
+    optim_g = optim.Adam(generator.parameters(), lr=lr, betas=(0.5, 0.999))
+
+    # Training loop
+    mse_scores = []
+    js_scores = []
+
+    time_start = time.perf_counter()
+    for epoch in ProgressBar()(range(nb_epoch)):
+        loss_g_running, loss_d_real_running, loss_d_fake_running = 0, 0, 0
+        n_batches = 0
+
+        for batch, x in enumerate(train_loader):
+            n_batches += 1
+
+            # TRAIN DISCRIMINATOR
+            x = x.to(device)
+            batch_size = x.shape[0]
+
+            target_ones = torch.ones((batch_size, 1), device=device)
+            target_zeros = torch.zeros((batch_size, 1), device=device)
+
+            discriminator.zero_grad()
+            pred_real = discriminator(x)
+            loss_real = criterion(pred_real, target_ones)
+
+            # Fake samples
+            z = torch.randn((batch_size, latent_dim, 1), device=device)
+            with torch.no_grad():
+                fake_samples = generator(z)
+            pred_fake = discriminator(fake_samples)
+            loss_fake = criterion(pred_fake, target_zeros)
+
+            # Combine losses
+            loss = (loss_real + loss_fake) / 2
+            loss.backward()
+            optim_d.step()
+
+            loss_d_real_running += loss_real.item()
+            loss_d_fake_running += loss_fake.item()
+
+            # TRAIN GENERATOR
+            generator.zero_grad()
+            z = torch.randn((batch_size, latent_dim, 1), device=device)
+
+            generated = generator(z)
+            classifications = discriminator(generated)
+            loss = criterion(classifications, target_ones) + \
+                   12 * torch.mean((periodogram(generated) - periodogram(x)) ** 2)
+
+            loss.backward()
+            optim_g.step()
+
+            loss_g_running += loss.item()
+
+            # Calculate scores
+            mse_score = torch.mean((periodogram(generated) - periodogram(x)) ** 2).item()
+            mse_scores.append(mse_score)
+
+            # Calculate JS divergence
+            real_periodogram = periodogram(x).cpu().detach().numpy().flatten()
+            generated_periodogram = periodogram(generated).cpu().detach().numpy().flatten()
+            js_score = js_divergence(real_periodogram, generated_periodogram)
+            js_scores.append(js_score)
+
+        # Average scores
+        avg_mse_score = sum(mse_scores) / len(mse_scores)
+        avg_js_score = sum(js_scores) / len(js_scores)
+
+        if epoch % 1 == 0:
+            print('\nEpoch [{}/{}] -----------------------------------------------------------------------------'
+                  .format(epoch + 1, nb_epoch))
+            print('G: {}, Dr : {}, Df : {}, JS: {}'.format(
+                  avg_mse_score,
+                  loss_d_real_running / len(train_loader),
+                  loss_d_fake_running / len(train_loader),
+                  avg_js_score))
+
+    # Save the scores and models
+    os.makedirs(save_path, exist_ok=True)
+    np.save(os.path.join(save_path, 'mse_scores.npy'), mse_scores)
+    np.save(os.path.join(save_path, 'js_scores.npy'), js_scores)
+    torch.save(generator.state_dict(), os.path.join(save_path, 'generator.pt'))
+    torch.save(discriminator.state_dict(), os.path.join(save_path, 'discriminator.pt'))
+
+    return generator, discriminator
+```
+
+---
+
+## **8. `my_gan_package/testing.py`**
+
+This module is used for evaluating and visualizing the results.
+
+```python
+import torch
+import numpy as np
+import matplotlib.pyplot as plt
+import os
+
+def evaluate_gan(generator, all_real_data, device, save_path):
+    # Generate synthetic data
+    latent_dim = generator.cnn[0].in_channels
+    num_samples = len(all_real_data)
+    z = torch.randn((num_samples, latent_dim, 1), device=device)
+    with torch.no_grad():
+        all_generated_data = generator(z)
+    all_generated_data = all_generated_data.cpu().detach()
+
+    # Flatten the real and generated data
+    flattened_real_data = all_real_data.numpy().flatten()
+    flattened_generated_data = all_generated_data.numpy().flatten()
+
+    # Filter velocities greater than zero
+    positive_real_data = flattened_real_data[flattened_real_data > 0]
+    positive_generated_data = flattened_generated_data[flattened_generated_data > 0]
+
+    # Compute the log of positive data
+    log_positive_real_data = np.log(positive_real_data)
+    log_positive_generated_data = np.log(positive_generated_data)
+
+    # Determine the range for the bins
+    min_value = min(log_positive_real_data.min(), log_positive_generated_data.min())
+    max_value = max(log_positive_real_data.max(), log_positive_generated_data.max())
+
+    # Create bins
+    num_bins = 200
+    bins = np.linspace(min_value, max_value, num_bins + 1)
+
+    # Plotting histogram
+    plt.figure(figsize=(10, 6))
+    plt.hist(log_positive_real_data, bins=bins, alpha=1, label='Real', color='red', edgecolor='black')
+    plt.hist(log_positive_generated_data, bins=bins, alpha=0.7, label='Generated', color='blue', edgecolor='black')
+    plt.xlabel('Log Velocity')
+    plt.xlim(left=-12)
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(os.path.join(save_path, 'RealVSGenerated_velCNN+DCGAN.pdf'))
+    plt.show()
+```
+
+---
+
+## **9. Usage Example**
+
+Here's how you can use the package in a script.
+
+```python
+import torch
+from my_gan_package import dataloader, train, testing
+
+# Set device
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+# Load and preprocess data
+folder_path = '/path/to/your/data'  # Replace with your data path
+vS_all = dataloader.load_and_preprocess_data(folder_path)
+train_set, test_set, scaler = dataloader.prepare_datasets(vS_all)
+
+# Train the GAN
+save_path = './results'
+generator, discriminator = train.train_gan(train_set, device, save_path)
+
+# Evaluate the GAN
+# Assuming you have a DataLoader for all_real_data
+all_real_data = []
+for batch in train_set:
+    all_real_data.append(batch)
+all_real_data = torch.cat(all_real_data)
+
+testing.evaluate_gan(generator, all_real_data, device, save_path)
+```
+
+---
+
+## **10. Installation Instructions**
+
+- **Install the package**:
+
+  Navigate to the directory containing `setup.py` and run:
+
+  ```bash
+  pip install .
+  ```
+
+- **Install required packages**:
+
+  Alternatively, you can install the requirements directly:
+
+  ```bash
+  pip install -r requirements.txt
+  ```
+
+---
+
+## **11. Notes**
+
+- **Data Path**: Ensure that you update `folder_path` in the usage example with the correct path to your data files.
+
+- **Dependencies**: The package requires `torch`, `numpy`, `pandas`, `scipy`, `matplotlib`, `sklearn`, and `progressbar2`.
+
+- **GPU Usage**: The code checks for GPU availability and uses it if available. Ensure that you have CUDA installed if you intend to run on GPU.
+
+- **Customizations**: You can adjust hyperparameters like `nb_epoch`, `batch_size`, and `latent_dim` in `train.py` as per your requirements.
+
+---
+
+## **12. Testing**
+
+Create a `tests/` directory to include unit tests for your package. Here's an example `test_models.py` file:
+
+```python
+# tests/test_models.py
+import unittest
+import torch
+from my_gan_package.models import CNNGenerator2, CNNDiscriminator2
+
+class TestModels(unittest.TestCase):
+    def test_generator_output_shape(self):
+        latent_dim = 256
+        batch_size = 16
+        generator = CNNGenerator2(input_channels=latent_dim, output_channels=1)
+        z = torch.randn((batch_size, latent_dim, 1))
+        output = generator(z)
+        self.assertEqual(output.shape, (batch_size, 1, 200))
+
+    def test_discriminator_output_shape(self):
+        batch_size = 16
+        discriminator = CNNDiscriminator2()
+        x = torch.randn((batch_size, 1, 200))
+        output = discriminator(x)
+        self.assertEqual(output.shape, (batch_size,))
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+Run the tests with:
+
+```bash
+python -m unittest discover tests
+```
+
+---
+
+By organizing your code into a package, you improve its maintainability and reusability. This structure allows others to install and use your GAN implementation easily. Remember to replace placeholder paths and parameters with those specific to your environment.s

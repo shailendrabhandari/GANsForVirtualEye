@@ -11,7 +11,7 @@ def main():
     parser = argparse.ArgumentParser(description='Train and Evaluate GAN for Time Series Generation')
     parser.add_argument('--data_path', type=str, default='./data', help='Path to your data folder')
     parser.add_argument('--save_path', type=str, default='./results', help='Path to save results and models')
-    parser.add_argument('--epochs', type=int, default=5, help='Number of training epochs')
+    parser.add_argument('--epochs', type=int, default=120, help='Number of training epochs')
     parser.add_argument('--batch_size', type=int, default=128, help='Batch size for training')
     parser.add_argument('--latent_dim', type=int, default=256, help='Dimension of latent space for generator')
     parser.add_argument('--generator_model', type=str, default='CNNGenerator',

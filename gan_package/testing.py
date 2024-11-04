@@ -52,7 +52,7 @@ def evaluate_gan(generator, all_real_data, device, save_path, latent_dim=256):
     max_value = max(log_positive_real_data.max(), log_positive_generated_data.max())
 
     # Create bins
-    num_bins = 200
+    num_bins = 60
     bins = np.linspace(min_value, max_value, num_bins + 1)
 
     # Plotting histogram

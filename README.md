@@ -339,12 +339,6 @@ Monitor the loss values and JS divergence printed during training. Decreasing lo
 
 Yes! The package is modular, allowing you to add new generator and discriminator models. Ensure they are properly defined in `models.py` and included in the `get_generator` and `get_discriminator` functions.
 
----
-
-
-## **Support**
-
-If you encounter any issues or have questions, please open an issue on the GitHub repository or contact the maintainer directly.
 
 ---
 

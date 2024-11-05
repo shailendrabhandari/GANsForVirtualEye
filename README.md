@@ -1,5 +1,4 @@
-![Velocity Data](gan_package/results/velocity_data.png)
-
+![Velocity Data](gan_package/results/Class_GAN_Arc.png)
 # **GAN: Time Series Generation Package**
 
 This package provides an implementation of Generative Adversarial Networks (GANs) for time series generation, with flexible architecture options. Users can select different combinations of generator and discriminator models, including Convolutional Neural Networks (CNN) and Long Short-Term Memory networks (LSTM), to suit their specific needs.
@@ -60,6 +59,8 @@ GANsForVirtualEye/
 - **main.py**: Entry point for running the training and evaluation.
 - **setup.py**: Package installation script.
 - **requirements.txt**: Lists all package dependencies.
+
+![Velocity Data](gan_package/results/velocity_data.png)
 
 ---
 

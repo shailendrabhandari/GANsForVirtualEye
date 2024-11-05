@@ -1,5 +1,6 @@
 ![Velocity Data](gan_package/results/Class_GAN_Arc.jpg)
 # **GAN: Time Series Generation Package**
+![Necessary Library](https://img.shields.io/badge/Necessary%20Library-PyTorch-red)
 ![Watching](https://img.shields.io/badge/Watching-10-blue)
 ![GAN](https://img.shields.io/badge/GAN-Generative%20Adversarial%20Network-green)
 ![Necessary Library](https://img.shields.io/badge/Necessary%20Library-TensorFlow-orange)

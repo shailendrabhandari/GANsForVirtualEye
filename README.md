@@ -3,7 +3,7 @@
 ![Watching](https://img.shields.io/badge/Watching-10-blue)
 ![GAN](https://img.shields.io/badge/GAN-Generative%20Adversarial%20Network-green)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-orange)
-![PyTorch](https://img.shields.io/badge/PyTorch-red-Version%202.5.1)
+![PyTorch](https://img.shields.io/badge/Necessary%20Library-PyTorch-red)
 
 This package provides an implementation of Generative Adversarial Networks (GANs) for time series generation, with flexible architecture options. Users can select different combinations of generator and discriminator models, including Convolutional Neural Networks (CNN) and Long Short-Term Memory networks (LSTM), to suit their specific needs.
 

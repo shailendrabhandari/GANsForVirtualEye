@@ -106,7 +106,7 @@ You can customize the behavior of the script using the following arguments:
 
 - `--data_path`: Path to your data folder containing the `.txt` files.
 - `--save_path`: Path where results and models will be saved.
-- `--epochs`: Number of training epochs (default: 120).
+- `--epochs`: Number of training epochs (default: 500).
 - `--batch_size`: Batch size for training (default: 128).
 - `--latent_dim`: Dimension of the latent space for the generator (default: 256).
 - `--generator_model`: Generator model to use (`CNNGenerator2` or `LSTMGenerator`).

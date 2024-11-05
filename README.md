@@ -1,8 +1,9 @@
 ![Python](https://img.shields.io/badge/V%203.11.0-Python-yellow)
-![Watching](https://img.shields.io/badge/Watching-10-blue)
-![GAN](https://img.shields.io/badge/GAN-Generative%20Adversarial%20Network-green)
 ![Pandas](https://img.shields.io/badge/V%202.2.3-Pandas-orange)
 ![PyTorch](https://img.shields.io/badge/V%202.5.1-PyTorch-red)
+![Watching](https://img.shields.io/badge/Watching-10-blue)
+![GAN](https://img.shields.io/badge/GAN-Generative%20Adversarial%20Network-green)
+
 
 ![Velocity Data](gan_package/results/Class_GAN_Arc.jpg)
 # **GAN: Time Series Generation Package**

@@ -1,5 +1,8 @@
 ![Velocity Data](gan_package/results/Class_GAN_Arc.jpg)
 # **GAN: Time Series Generation Package**
+![Watching](https://img.shields.io/badge/Watching-10-blue)
+![GAN](https://img.shields.io/badge/GAN-Generative%20Adversarial%20Network-green)
+![Necessary Library](https://img.shields.io/badge/Necessary%20Library-TensorFlow-orange)
 
 This package provides an implementation of Generative Adversarial Networks (GANs) for time series generation, with flexible architecture options. Users can select different combinations of generator and discriminator models, including Convolutional Neural Networks (CNN) and Long Short-Term Memory networks (LSTM), to suit their specific needs.
 

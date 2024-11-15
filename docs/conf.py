@@ -28,6 +28,9 @@ extensions = [
     "sphinx.ext.napoleon",
 ]
 
+# Specify the root document for Sphinx
+master_doc = "index"  # Root document name (typically 'index')
+
 # Specify templates and source file types
 templates_path = ["_templates"]
 source_suffix = ".rst"  # Only use .rst files
@@ -38,6 +41,7 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 # Language configuration
 language = "en"
 keep_warnings = True  # Show warnings as system messages in output
+
 
 # -- Options for HTML output -------------------------------------------------
 html_theme = "sphinx_rtd_theme"

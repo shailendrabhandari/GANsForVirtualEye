@@ -5,7 +5,7 @@ GAN: Time Series Generation Package
 This package provides an implementation of Generative Adversarial Networks (GANs) for time series generation, with flexible architecture options. Users can select different combinations of generator and discriminator models, including Convolutional Neural Networks (CNN) and Long Short-Term Memory networks (LSTM), to suit their specific needs.
 
 .. image:: gan_package/results/Class_GAN_Arc.jpg
-   :alt: Velocity Data
+   :alt: GAN Architecture
 
 ---
 
@@ -48,12 +48,8 @@ Package Structure
    GANsForVirtualEye/
    ├── gan_package/
    ├── docs/
-   │   ├── __init__.py
-   │   ├── dataloader.py
-   │   ├── models.py
-   │   ├── train.py
-   │   ├── testing.py
-   │   ├── utils.py
+   │   ├── introduction.rst
+   │   ├── index.rst
    ├── main.py
    ├── setup.py
    ├── requirements.txt
@@ -80,7 +76,7 @@ Steps
 
    .. code-block:: bash
 
-      git clone https://github.com/shailendrabhandari/GANsForVirtualEye.git 
+      git clone https://github.com/shailendrabhandari/GANsForVirtualEye.git
       cd GANsForVirtualEye
 
 2. **Install Required Packages**
@@ -112,8 +108,8 @@ Command-Line Arguments
 - `--epochs`: Number of training epochs (default: 500).
 - `--batch_size`: Batch size for training (default: 128).
 - `--latent_dim`: Dimension of the latent space for the generator (default: 256).
-- `--generator_model`: Generator model to use (`CNNGenerator2` or `LSTMGenerator`).
-- `--discriminator_model`: Discriminator model to use (`CNNDiscriminator2` or `LSTMDiscriminator`).
+- `--generator_model`: Generator model to use (`CNNGenerator` or `LSTMGenerator`).
+- `--discriminator_model`: Discriminator model to use (`CNNDiscriminator` or `LSTMDiscriminator`).
 
 Example Commands
 ----------------
@@ -199,6 +195,8 @@ After training, results and models are saved to the specified `--save_path` dire
 - **Training Metrics**: Spectral Loss values and divergence scores saved as `.npy` files.
 - **Evaluation Plot**: A histogram comparing real and generated data distributions saved as `RealVSGenerated_velGAN.pdf`.
 
+---
+
 Dependencies
 ============
 
@@ -273,6 +271,4 @@ Frequently Asked Questions (FAQ)
 ---
 
 Thank You for Using GAN Time Series Generation Package!
-======================================================
-
-We hope this package helps you in your research or projects involving time series data generation. Your feedback is valuable to us.
+=======================================================

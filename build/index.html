@@ -1,0 +1,412 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GAN: Time Series Generation Package &mdash; GANsForVirtualEye 13/11/2024 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=dad8b77e"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            GANsForVirtualEye
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">GAN: Time Series Generation Package</a><ul>
+<li><a class="reference internal" href="#table-of-contents">Table of Contents</a></li>
+<li><a class="reference internal" href="#features">Features</a></li>
+<li><a class="reference internal" href="#package-structure">Package Structure</a></li>
+<li><a class="reference internal" href="#installation">Installation</a><ul>
+<li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li><a class="reference internal" href="#steps">Steps</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#command-line-arguments">Command-Line Arguments</a></li>
+<li><a class="reference internal" href="#example-commands">Example Commands</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#data-preparation">Data Preparation</a><ul>
+<li><a class="reference internal" href="#data-format">Data Format</a></li>
+<li><a class="reference internal" href="#data-loading">Data Loading</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-architectures">Model Architectures</a><ul>
+<li><a class="reference internal" href="#generators">Generators</a></li>
+<li><a class="reference internal" href="#discriminators">Discriminators</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#results">Results</a></li>
+<li><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li><a class="reference internal" href="#contributing">Contributing</a></li>
+<li><a class="reference internal" href="#license">License</a></li>
+<li><a class="reference internal" href="#contact">Contact</a></li>
+<li><a class="reference internal" href="#acknowledgments">Acknowledgments</a></li>
+<li><a class="reference internal" href="#frequently-asked-questions-faq">Frequently Asked Questions (FAQ)</a></li>
+<li><a class="reference internal" href="#thank-you-for-using-gan-time-series-generation-package">Thank You for Using GAN Time Series Generation Package!</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">GANsForVirtualEye</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">GAN: Time Series Generation Package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="gan-time-series-generation-package">
+<h1>GAN: Time Series Generation Package<a class="headerlink" href="#gan-time-series-generation-package" title="Link to this heading"></a></h1>
+<p>This package provides an implementation of Generative Adversarial Networks (GANs) for time series generation, with flexible architecture options. Users can select different combinations of generator and discriminator models, including Convolutional Neural Networks (CNN) and Long Short-Term Memory networks (LSTM), to suit their specific needs.</p>
+<img alt="GAN Architecture" src="_images/Class_GAN_Arc.jpg" />
+<p>—</p>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#features">Features</a></p></li>
+<li><p><a class="reference internal" href="#package-structure">Package Structure</a></p></li>
+<li><p><a class="reference internal" href="#installation">Installation</a></p></li>
+<li><p><a class="reference internal" href="#usage">Usage</a>
+- <a class="reference internal" href="#command-line-arguments">Command-Line Arguments</a>
+- <a class="reference internal" href="#example-commands">Example Commands</a></p></li>
+<li><p><a class="reference internal" href="#data-preparation">Data Preparation</a></p></li>
+<li><p><a class="reference internal" href="#model-architectures">Model Architectures</a></p></li>
+<li><p><a class="reference internal" href="#results">Results</a></p></li>
+<li><p><a class="reference internal" href="#dependencies">Dependencies</a></p></li>
+<li><p><a class="reference internal" href="#contributing">Contributing</a></p></li>
+<li><p><a class="reference internal" href="#license">License</a></p></li>
+<li><p><a class="reference internal" href="#contact">Contact</a></p></li>
+</ul>
+<p>—</p>
+</section>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Flexible Model Selection</strong>: Choose between CNN and LSTM architectures for both the generator and discriminator.</p></li>
+<li><p><strong>Time Series Generation</strong>: Generate synthetic time series data based on input sequences.</p></li>
+<li><p><strong>Customizable Parameters</strong>: Adjust hyperparameters such as epochs, batch size, and latent dimension.</p></li>
+<li><p><strong>Data Preprocessing</strong>: Includes utilities for loading and preprocessing time series data.</p></li>
+<li><p><strong>Evaluation Metrics</strong>: Calculate and visualize performance metrics like loss and JS divergence.</p></li>
+<li><p><strong>Modular Codebase</strong>: Organized code structure for ease of maintenance and extension.</p></li>
+</ul>
+<p>—</p>
+</section>
+<section id="package-structure">
+<h2>Package Structure<a class="headerlink" href="#package-structure" title="Link to this heading"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GANsForVirtualEye/
+├── gan_package/
+│   ├── __init__.py
+│   ├── dataloader.py
+│   ├── models.py
+│   ├── train.py
+│   ├── testing.py
+│   ├── utils.py
+├── docs/
+│   ├── introduction.rst
+│   ├── index.rst
+├── main.py
+├── setup.py
+├── requirements.txt
+├── README.md
+</pre></div>
+</div>
+<img alt="Velocity Data" src="_images/velocity_data.png" />
+<p>—</p>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<section id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Python 3.6 or higher</p></li>
+<li><p><cite>pip</cite> package manager</p></li>
+</ul>
+</section>
+<section id="steps">
+<h3>Steps<a class="headerlink" href="#steps" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p><strong>Clone the Repository</strong></p>
+<p>Clone the repository to your local machine:
+.. code-block:: bash</p>
+<blockquote>
+<div><p>git clone <a class="reference external" href="https://github.com/shailendrabhandari/GANsForVirtualEye.git">https://github.com/shailendrabhandari/GANsForVirtualEye.git</a>
+cd GANsForVirtualEye</p>
+</div></blockquote>
+</li>
+<li><p><strong>Set Up a Virtual Environment</strong></p>
+<p>It is recommended to use a virtual environment to avoid conflicts with global packages:
+.. code-block:: bash</p>
+<blockquote>
+<div><p>python -m venv venv
+source venv/bin/activate  # For Linux/MacOS
+venvScriptsactivate     # For Windows</p>
+</div></blockquote>
+</li>
+<li><p><strong>Install Dependencies</strong></p>
+<p>Install the required Python packages:
+.. code-block:: bash</p>
+<blockquote>
+<div><p>pip install -r requirements.txt</p>
+</div></blockquote>
+</li>
+<li><p><strong>Install the Package</strong></p>
+<p>Install the package locally for development:
+.. code-block:: bash</p>
+<blockquote>
+<div><p>pip install .</p>
+</div></blockquote>
+</li>
+</ol>
+<p>—</p>
+</section>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<p>The package can be used by running the <cite>main.py</cite> script, which orchestrates the data loading, model training, and evaluation processes.</p>
+<section id="command-line-arguments">
+<h3>Command-Line Arguments<a class="headerlink" href="#command-line-arguments" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><cite>–data_path</cite>: Path to your data folder containing the <cite>.txt</cite> files.</p></li>
+<li><p><cite>–save_path</cite>: Path where results and models will be saved.</p></li>
+<li><p><cite>–epochs</cite>: Number of training epochs (default: 500).</p></li>
+<li><p><cite>–batch_size</cite>: Batch size for training (default: 128).</p></li>
+<li><p><cite>–latent_dim</cite>: Dimension of the latent space for the generator (default: 256).</p></li>
+<li><p><cite>–generator_model</cite>: Generator model to use (<cite>CNNGenerator</cite> or <cite>LSTMGenerator</cite>).</p></li>
+<li><p><cite>–discriminator_model</cite>: Discriminator model to use (<cite>CNNDiscriminator</cite> or <cite>LSTMDiscriminator</cite>).</p></li>
+</ul>
+</section>
+<section id="example-commands">
+<h3>Example Commands<a class="headerlink" href="#example-commands" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p>CNN Generator with CNN Discriminator</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main.py<span class="w"> </span>--data_path<span class="w"> </span><span class="s1">&#39;/path/to/your/data&#39;</span><span class="w"> </span>--save_path<span class="w"> </span><span class="s1">&#39;./results&#39;</span><span class="w"> </span><span class="se">\</span>
+--generator_model<span class="w"> </span><span class="s1">&#39;CNNGenerator&#39;</span><span class="w"> </span>--discriminator_model<span class="w"> </span><span class="s1">&#39;CNNDiscriminator&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>LSTM Generator with LSTM Discriminator</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main.py<span class="w"> </span>--data_path<span class="w"> </span><span class="s1">&#39;/path/to/your/data&#39;</span><span class="w"> </span>--save_path<span class="w"> </span><span class="s1">&#39;./results&#39;</span><span class="w"> </span><span class="se">\</span>
+--generator_model<span class="w"> </span><span class="s1">&#39;LSTMGenerator&#39;</span><span class="w"> </span>--discriminator_model<span class="w"> </span><span class="s1">&#39;LSTMDiscriminator&#39;</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>—</p>
+</section>
+</section>
+<section id="data-preparation">
+<h2>Data Preparation<a class="headerlink" href="#data-preparation" title="Link to this heading"></a></h2>
+<p>This package explicitly expects time series data in the form of <cite>.txt</cite> files, each containing sequences of velocity measurements or similar metrics.</p>
+<section id="data-format">
+<h3>Data Format<a class="headerlink" href="#data-format" title="Link to this heading"></a></h3>
+<p>Each <cite>.txt</cite> file should contain columns representing:
+- Time stamps
+- X and Y positions for left and right eye
+- Additional metrics like saccade indicators</p>
+</section>
+<section id="data-loading">
+<h3>Data Loading<a class="headerlink" href="#data-loading" title="Link to this heading"></a></h3>
+<p>The <cite>dataloader.py</cite> module handles data loading and preprocessing:</p>
+<ul class="simple">
+<li><p><strong>Data Cleaning</strong>: Removes the first <cite>n</cite> data points and handles NaN values.</p></li>
+<li><p><strong>Feature Engineering</strong>: Calculates velocities and filters out non-positive values.</p></li>
+<li><p><strong>Normalization</strong>: Normalizes the data using <cite>MinMaxScaler</cite>.</p></li>
+<li><p><strong>Sequence Sampling</strong>: Samples sequences of a specified length for training.</p></li>
+</ul>
+<p>—</p>
+</section>
+</section>
+<section id="model-architectures">
+<h2>Model Architectures<a class="headerlink" href="#model-architectures" title="Link to this heading"></a></h2>
+<section id="generators">
+<h3>Generators<a class="headerlink" href="#generators" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p><strong>CNNGenerator</strong></p>
+<ul class="simple">
+<li><p><strong>Input</strong>: Latent vector of shape <cite>(batch_size, latent_dim, 1)</cite></p></li>
+<li><p><strong>Output</strong>: Generated sequence of shape <cite>(batch_size, 1, sequence_length)</cite></p></li>
+</ul>
+</li>
+<li><p><strong>LSTMGenerator</strong></p>
+<ul class="simple">
+<li><p><strong>Input</strong>: Latent vector of shape <cite>(batch_size, sequence_length, latent_dim)</cite></p></li>
+<li><p><strong>Output</strong>: Generated sequence of shape <cite>(batch_size, sequence_length, output_channels)</cite></p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="discriminators">
+<h3>Discriminators<a class="headerlink" href="#discriminators" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p><strong>CNNDiscriminator</strong></p>
+<ul class="simple">
+<li><p><strong>Input</strong>: Sequence of shape <cite>(batch_size, 1, sequence_length)</cite></p></li>
+<li><p><strong>Output</strong>: Probability score indicating real or fake</p></li>
+</ul>
+</li>
+<li><p><strong>LSTMDiscriminator</strong></p>
+<ul class="simple">
+<li><p><strong>Input</strong>: Sequence of shape <cite>(batch_size, sequence_length, input_size)</cite></p></li>
+<li><p><strong>Output</strong>: Probability score indicating real or fake</p></li>
+</ul>
+</li>
+</ol>
+<p>—</p>
+</section>
+</section>
+<section id="results">
+<h2>Results<a class="headerlink" href="#results" title="Link to this heading"></a></h2>
+<p>After training, results and models are saved to the specified <cite>–save_path</cite> directory.</p>
+<ul class="simple">
+<li><p><strong>Model Checkpoints</strong>: Saved as <cite>generator.pt</cite> and <cite>discriminator.pt</cite>.</p></li>
+<li><p><strong>Training Metrics</strong>: Spectral Loss values and divergence scores saved as <cite>.npy</cite> files.</p></li>
+<li><p><strong>Evaluation Plot</strong>: A histogram comparing real and generated data distributions saved as <cite>RealVSGenerated_velGAN.pdf</cite>.</p></li>
+</ul>
+<p>—</p>
+</section>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Python 3.6 or higher</p></li>
+<li><p><cite>numpy</cite>, <cite>torch</cite>, <cite>torchvision</cite>, <cite>matplotlib</cite>, <cite>scipy</cite>, <cite>sklearn</cite>, <cite>pandas</cite>, <cite>progressbar2</cite></p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+<p>—</p>
+</section>
+<section id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Link to this heading"></a></h2>
+<p>Contributions are welcome! Please follow these steps:</p>
+<ol class="arabic simple">
+<li><p><strong>Fork the Repository</strong>.</p></li>
+<li><p><strong>Clone Your Fork</strong>.</p></li>
+<li><p><strong>Create a New Branch</strong>.</p></li>
+<li><p><strong>Make Changes and Commit</strong>.</p></li>
+<li><p><strong>Push to Your Fork</strong>.</p></li>
+<li><p><strong>Submit a Pull Request</strong>.</p></li>
+</ol>
+<p>—</p>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Link to this heading"></a></h2>
+<p>This project is licensed under the MIT License.</p>
+<p>—</p>
+</section>
+<section id="contact">
+<h2>Contact<a class="headerlink" href="#contact" title="Link to this heading"></a></h2>
+<p>For questions or suggestions, please contact:</p>
+<ul class="simple">
+<li><p><strong>Shailendra Bhandari</strong></p></li>
+<li><p><strong>Email</strong>: <a class="reference external" href="mailto:shailendra&#46;bhandari&#37;&#52;&#48;oslomet&#46;no">shailendra<span>&#46;</span>bhandari<span>&#64;</span>oslomet<span>&#46;</span>no</a></p></li>
+<li><p><strong>GitHub</strong>: <cite>shailendrabhandari &lt;https://github.com/shailendrabhandari&gt;</cite></p></li>
+</ul>
+<p>—</p>
+</section>
+<section id="acknowledgments">
+<h2>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Thank you to all contributors and the AI lab teams who helped improve this package.</p></li>
+<li><p>Inspired by research on GANs for time series generation.</p></li>
+</ul>
+<p>—</p>
+</section>
+<section id="frequently-asked-questions-faq">
+<h2>Frequently Asked Questions (FAQ)<a class="headerlink" href="#frequently-asked-questions-faq" title="Link to this heading"></a></h2>
+<ol class="arabic">
+<li><p><strong>What types of data can I use with this package?</strong></p>
+<p>This package is designed for time series data, specifically sequences of numerical values like velocities. While tailored for time series, it can be extended for other types of sequential data with modifications.</p>
+</li>
+<li><p><strong>Can I add new models to the package?</strong></p>
+<p>Yes! The package is modular, allowing you to add new generator and discriminator models. Ensure they are properly defined in <cite>models.py</cite> and included in the <cite>get_generator</cite> and <cite>get_discriminator</cite> functions.</p>
+</li>
+<li><p><strong>How do I adjust the sequence length or number of sequences?</strong></p>
+<p>Modify the <cite>sequence_length</cite> and <cite>num_sequences</cite> parameters in the <cite>prepare_datasets</cite> function within <cite>dataloader.py</cite>.</p>
+</li>
+<li><p><strong>How do I know if the models are training correctly?</strong></p>
+<p>Monitor the loss values and JS divergence during training. Decreasing loss values indicate learning. Additionally, examine the evaluation plots for confirmation.</p>
+</li>
+</ol>
+<p>—</p>
+</section>
+<section id="thank-you-for-using-gan-time-series-generation-package">
+<h2>Thank You for Using GAN Time Series Generation Package!<a class="headerlink" href="#thank-you-for-using-gan-time-series-generation-package" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Shailendra Bhandari.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

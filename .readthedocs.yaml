@@ -10,3 +10,7 @@ python:
     - method: pip
       path: .
     - requirements: requirements.txt
+
+readthedocs:
+  addons:
+    install: false

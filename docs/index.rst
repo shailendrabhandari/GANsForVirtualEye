@@ -4,8 +4,9 @@ GAN: Time Series Generation Package
 
 This package provides an implementation of Generative Adversarial Networks (GANs) for time series generation, with flexible architecture options. Users can select different combinations of generator and discriminator models, including Convolutional Neural Networks (CNN) and Long Short-Term Memory networks (LSTM), to suit their specific needs.
 
-.. image:: gan_package/results/Class_GAN_Arc.jpg
+.. image:: ../gan_package/results/Class_GAN_Arc.jpg
    :alt: GAN Architecture
+
 
 ---
 
@@ -43,10 +44,16 @@ Features
 Package Structure
 =================
 
-.. code-block:: bash
+.. code-block:: text
 
    GANsForVirtualEye/
    ├── gan_package/
+   │   ├── __init__.py
+   │   ├── dataloader.py
+   │   ├── models.py
+   │   ├── train.py
+   │   ├── testing.py
+   │   ├── utils.py
    ├── docs/
    │   ├── introduction.rst
    │   ├── index.rst
@@ -55,8 +62,9 @@ Package Structure
    ├── requirements.txt
    ├── README.md
 
-.. image:: gan_package/results/velocity_data.png
+.. image:: ../gan_package/results/velocity_data.png
    :alt: Velocity Data
+
 
 ---
 
@@ -74,21 +82,31 @@ Steps
 
 1. **Clone the Repository**
 
+   Clone the repository to your local machine:
    .. code-block:: bash
 
       git clone https://github.com/shailendrabhandari/GANsForVirtualEye.git
       cd GANsForVirtualEye
 
-2. **Install Required Packages**
+2. **Set Up a Virtual Environment**
 
-   It's recommended to use a virtual environment.
+   It is recommended to use a virtual environment to avoid conflicts with global packages:
+   .. code-block:: bash
 
+      python -m venv venv
+      source venv/bin/activate  # For Linux/MacOS
+      venv\Scripts\activate     # For Windows
+
+3. **Install Dependencies**
+
+   Install the required Python packages:
    .. code-block:: bash
 
       pip install -r requirements.txt
 
-3. **Install the Package**
+4. **Install the Package**
 
+   Install the package locally for development:
    .. code-block:: bash
 
       pip install .

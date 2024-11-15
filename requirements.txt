@@ -6,4 +6,6 @@ scipy
 sklearn
 pandas
 progressbar2
-
+Sphinx
+sphinx-rtd-theme
+sphinx-autodoc-typehints

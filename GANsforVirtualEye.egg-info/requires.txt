@@ -1,0 +1,8 @@
+numpy
+torch
+torchvision
+matplotlib
+scipy
+sklearn
+pandas
+progressbar2

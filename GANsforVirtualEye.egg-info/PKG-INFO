@@ -1,0 +1,16 @@
+Metadata-Version: 2.1
+Name: GANsforVirtualEye
+Version: 0.1.0
+Summary: This package provides an implementation of Generative Adversarial Networks (GANs) for time series generation, with flexible architecture options. Users can select different combinations of generator and discriminator models, including Convolutional Neural Networks (CNN) and Long Short-Term Memory networks (LSTM), to suit their specific needs.
+Author: Shailendra Bhandari
+Author-email: shailendra.bhandari@oslomet.no
+Requires-Python: >=3.6
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: torch
+Requires-Dist: torchvision
+Requires-Dist: matplotlib
+Requires-Dist: scipy
+Requires-Dist: sklearn
+Requires-Dist: pandas
+Requires-Dist: progressbar2

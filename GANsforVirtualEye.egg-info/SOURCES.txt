@@ -1,0 +1,15 @@
+LICENSE
+README.md
+setup.py
+GANsforVirtualEye.egg-info/PKG-INFO
+GANsforVirtualEye.egg-info/SOURCES.txt
+GANsforVirtualEye.egg-info/dependency_links.txt
+GANsforVirtualEye.egg-info/requires.txt
+GANsforVirtualEye.egg-info/top_level.txt
+gan_package/__init__.py
+gan_package/dataloader.py
+gan_package/main.py
+gan_package/models.py
+gan_package/testing.py
+gan_package/train.py
+gan_package/utils.py

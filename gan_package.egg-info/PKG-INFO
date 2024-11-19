@@ -1,0 +1,16 @@
+Metadata-Version: 2.1
+Name: gan_package
+Version: 0.1.0
+Summary: GAN for Time Series Generation
+Author: Shailendra Bhandari
+Author-email: shailendra.bhandari@oslomet.no
+Requires-Python: >=3.6
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: torch
+Requires-Dist: torchvision
+Requires-Dist: matplotlib
+Requires-Dist: scipy
+Requires-Dist: sklearn
+Requires-Dist: pandas
+Requires-Dist: progressbar2

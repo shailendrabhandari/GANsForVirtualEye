@@ -10,7 +10,7 @@ with open(HERE / "README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="GANsforVirtualEye",
-    version="0.1.0",
+    version="0.1.1",
     author="Shailendra Bhandari",
     author_email="shailendra.bhandari@oslomet.no",
     description=(

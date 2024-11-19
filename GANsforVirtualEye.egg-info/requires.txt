@@ -3,6 +3,6 @@ torch
 torchvision
 matplotlib
 scipy
-sklearn
+scikit-learn
 pandas
 progressbar2

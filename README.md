@@ -1,7 +1,7 @@
 [![Documentation Status](https://readthedocs.org/projects/gansforvirtualeye/badge/?version=latest)](https://gansforvirtualeye.readthedocs.io/en/latest/)
 [![license](https://img.shields.io/badge/License-MIT-brightgreen)](https://github.com/shailendrabhandari/GANsForVirtualEye/blob/main/LICENSE)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/intermittent-levy)](https://pypi.org/project/intermittent-levy/)
-[![PyPI](https://img.shields.io/pypi/v/intermittent-levy)](https://pypi.org/project/intermittent-levy/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/GANsforVirtualEye)](https://pypi.org/project/GANsforVirtualEye/)
+[![PyPI](https://img.shields.io/pypi/v/GANsforVirtualEye)](https://pypi.org/project/GANsforVirtualEye/)
 
 ![Python](https://img.shields.io/badge/V%203.11.0-Python-yellow)
 ![Pandas](https://img.shields.io/badge/V%202.2.3-Pandas-orange)

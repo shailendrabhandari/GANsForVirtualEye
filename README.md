@@ -2,12 +2,8 @@
 [![license](https://img.shields.io/badge/License-MIT-brightgreen)](https://github.com/shailendrabhandari/GANsForVirtualEye/blob/main/LICENSE)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/GANsforVirtualEye)](https://pypi.org/project/GANsforVirtualEye/)
 [![PyPI](https://img.shields.io/pypi/v/GANsforVirtualEye)](https://pypi.org/project/GANsforVirtualEye/)
-
-![Python](https://img.shields.io/badge/V%203.11.0-Python-yellow)
-![Pandas](https://img.shields.io/badge/V%202.2.3-Pandas-orange)
-![PyTorch](https://img.shields.io/badge/V%202.5.1-PyTorch-red)
-![Watching](https://img.shields.io/badge/Watching-10-blue)
-![GAN](https://img.shields.io/badge/GAN-Generative%20Adversarial%20Network-green)
+![GitHub watchers](https://img.shields.io/github/watchers/shailendrabhandari/GANsForVirtualEye?style=social)
+![GitHub stars](https://img.shields.io/github/stars/shailendrabhandari/GANsForVirtualEye?style=social)
 
 
 ![Velocity Data](gan_package/results/Class_GAN_Arc.jpg)

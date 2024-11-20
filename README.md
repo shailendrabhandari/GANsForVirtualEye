@@ -5,9 +5,11 @@
 ![GitHub watchers](https://img.shields.io/github/watchers/shailendrabhandari/GANsForVirtualEye?style=social)
 ![GitHub stars](https://img.shields.io/github/stars/shailendrabhandari/GANsForVirtualEye?style=social)
 
+# **GAN: Time Series Generation Package**
+
 
 ![Gan Architecture](https://raw.githubusercontent.com/shailendrabhandari/GANsForVirtualEye/main/gan_package/results/Class_GAN_Arc.jpg)
-# **GAN: Time Series Generation Package**
+
 
 This package provides an implementation of Generative Adversarial Networks (GANs) for time series generation, with flexible architecture options. Users can select different combinations of generator and discriminator models, including Convolutional Neural Networks (CNN) and Long Short-Term Memory networks (LSTM), to suit their specific needs.
 

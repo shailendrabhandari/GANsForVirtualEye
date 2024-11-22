@@ -2,6 +2,7 @@
 [![license](https://img.shields.io/badge/License-MIT-brightgreen)](https://github.com/shailendrabhandari/GANsForVirtualEye/blob/main/LICENSE)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/GANsforVirtualEye)](https://pypi.org/project/GANsforVirtualEye/)
 [![PyPI](https://img.shields.io/pypi/v/GANsforVirtualEye)](https://pypi.org/project/GANsforVirtualEye/)
+[![Downloads](https://pepy.tech/badge/gansforvirtualeye)](https://pepy.tech/project/gansforvirtualeye)
 ![GitHub watchers](https://img.shields.io/github/watchers/shailendrabhandari/GANsForVirtualEye?style=social)
 ![GitHub stars](https://img.shields.io/github/stars/shailendrabhandari/GANsForVirtualEye?style=social)
 
@@ -17,7 +18,7 @@ This package provides an implementation of Generative Adversarial Networks (GANs
 
 ## **Table of Contents**
 
-- [Features](#features)
+- [Features](#features)[![Downloads](https://pepy.tech/badge/intlevpy)](https://pepy.tech/project/intlevpy)
 - [Package Structure](#package-structure)
 - [Installation](#installation)
 - [Usage](#usage)

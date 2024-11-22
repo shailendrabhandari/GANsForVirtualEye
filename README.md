@@ -2,8 +2,8 @@
 [![license](https://img.shields.io/badge/License-MIT-brightgreen)](https://github.com/shailendrabhandari/GANsForVirtualEye/blob/main/LICENSE)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/GANsforVirtualEye)](https://pypi.org/project/GANsforVirtualEye/)
 [![PyPI](https://img.shields.io/pypi/v/GANsforVirtualEye)](https://pypi.org/project/GANsforVirtualEye/)
-![GitHub watchers](https://img.shields.io/github/watchers/shailendrabhandari/GANsForVirtualEye?style=social)
 [![Downloads](https://pepy.tech/badge/gansforvirtualeye)](https://pepy.tech/project/gansforvirtualeye)
+![GitHub watchers](https://img.shields.io/github/watchers/shailendrabhandari/GANsForVirtualEye?style=social)
 ![GitHub stars](https://img.shields.io/github/stars/shailendrabhandari/GANsForVirtualEye?style=social)
 
 # **GAN: Time Series Generation Package**

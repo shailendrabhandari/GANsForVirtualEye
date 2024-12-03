@@ -55,4 +55,3 @@ Detailed documentation is available at [Read the Docs](https://gansforvirtualeye
 
 ---
 
-Thank you for using GANsForVirtualEye! Your feedback is valuable to us.

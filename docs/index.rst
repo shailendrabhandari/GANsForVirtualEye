@@ -1,5 +1,5 @@
 ====================================
-GAN: Time Series Generation Package
+GANsForVirtualEye: Time Series Generation Package
 ====================================
 
 This package provides an implementation of Generative Adversarial Networks (GANs) for time series generation, with flexible architecture options. Users can select different combinations of generator and discriminator models, including Convolutional Neural Networks (CNN) and Long Short-Term Memory networks (LSTM), to suit their specific needs.
@@ -32,9 +32,9 @@ Table of Contents
 Features
 ========
 
-- **Flexible Model Selection**: Choose between CNN and LSTM architectures for both the generator and discriminator.
+- **Flexible Model Selection**: Choose between CNN and LSTM architectures for both teh generator and discriminator.
 - **Time Series Generation**: Generate synthetic time series data based on input sequences.
-- **Customizable Parameters**: Adjust hyperparameters such as epochs, batch size, and latent dimension.
+- **Customizable Parameters**: Adjust hyperparameters such as number of epochs, batch size, learning rate, lambda values, etc.
 - **Data Preprocessing**: Includes utilities for loading and preprocessing time series data.
 - **Evaluation Metrics**: Calculate and visualize performance metrics like loss and JS divergence.
 - **Modular Codebase**: Organized code structure for ease of maintenance and extension.
@@ -88,7 +88,7 @@ Steps
       git clone https://github.com/shailendrabhandari/GANsForVirtualEye.git
       cd GANsForVirtualEye
 
-2. **Set Up a Virtual Environment**
+2. **Set Up a Virtual Environment** (Optional)  
 
    It is recommended to use a virtual environment to avoid conflicts with global packages:
    .. code-block:: bash
@@ -210,7 +210,7 @@ Results
 After training, results and models are saved to the specified `--save_path` directory.
 
 - **Model Checkpoints**: Saved as `generator.pt` and `discriminator.pt`.
-- **Training Metrics**: Spectral Loss values and divergence scores saved as `.npy` files.
+- **Training Metrics**: Score (with gan+spectral loss) values and divergence scores saved as `.npy` files.
 - **Evaluation Plot**: A histogram comparing real and generated data distributions saved as `RealVSGenerated_velGAN.pdf`.
 
 ---
@@ -224,20 +224,6 @@ Dependencies
 .. code-block:: bash
 
    pip install -r requirements.txt
-
----
-
-Contributing
-============
-
-Contributions are welcome! Please follow these steps:
-
-1. **Fork the Repository**.
-2. **Clone Your Fork**.
-3. **Create a New Branch**.
-4. **Make Changes and Commit**.
-5. **Push to Your Fork**.
-6. **Submit a Pull Request**.
 
 ---
 
@@ -257,36 +243,4 @@ For questions or suggestions, please contact:
 - **Email**: shailendra.bhandari@oslomet.no
 - **GitHub**: `shailendrabhandari <https://github.com/shailendrabhandari>`
 
----
 
-Acknowledgments
-===============
-
-- Thank you to all contributors and the AI lab teams who helped improve this package.
-- Inspired by research on GANs for time series generation.
-
----
-
-Frequently Asked Questions (FAQ)
-================================
-
-1. **What types of data can I use with this package?**
-
-   This package is designed for time series data, specifically sequences of numerical values like velocities. While tailored for time series, it can be extended for other types of sequential data with modifications.
-
-2. **Can I add new models to the package?**
-
-   Yes! The package is modular, allowing you to add new generator and discriminator models. Ensure they are properly defined in `models.py` and included in the `get_generator` and `get_discriminator` functions.
-
-3. **How do I adjust the sequence length or number of sequences?**
-
-   Modify the `sequence_length` and `num_sequences` parameters in the `prepare_datasets` function within `dataloader.py`.
-
-4. **How do I know if the models are training correctly?**
-
-   Monitor the loss values and JS divergence during training. Decreasing loss values indicate learning. Additionally, examine the evaluation plots for confirmation.
-
----
-
-Thank You for Using GAN Time Series Generation Package!
-=======================================================

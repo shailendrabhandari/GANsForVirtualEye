@@ -51,11 +51,10 @@ def train_gan(train_set, device, save_path, nb_epoch=120, batch_size=128, latent
             x = x.to(device)  # x shape: (batch_size, 1, seq_length)
             batch_size, _, seq_length = x.shape
 
-            # Adjust x for discriminator input
             if discriminator_model.startswith('LSTM'):
                 x = x.squeeze(1).unsqueeze(2)  # Shape: (batch_size, seq_length, 1)
             elif discriminator_model.startswith('CNN'):
-                pass  # x is already in shape (batch_size, 1, seq_length)
+                pass  
 
             #### TRAIN DISCRIMINATOR #######
             discriminator.zero_grad()
@@ -77,10 +76,10 @@ def train_gan(train_set, device, save_path, nb_epoch=120, batch_size=128, latent
             # Adjust generated data for discriminator input
             if discriminator_model.startswith('LSTM'):
                 if generator_model.startswith('CNN'):
-                    generated = generated.squeeze(1).unsqueeze(2)  # Shape: (batch_size, seq_length, 1)
+                    generated = generated.squeeze(1).unsqueeze(2)  
             elif discriminator_model.startswith('CNN'):
                 if generator_model.startswith('LSTM'):
-                    generated = generated.permute(0, 2, 1)  # Shape: (batch_size, 1, seq_length)
+                    generated = generated.permute(0, 2, 1)  
 
             pred_fake = discriminator(generated)
             target_fake = torch.zeros((batch_size, 1), device=device)

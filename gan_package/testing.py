@@ -10,7 +10,6 @@ def evaluate_gan(generator, all_real_data, device, save_path, latent_dim=256):
     # Check the shape of all_real_data
     print("Shape of all_real_data:", all_real_data.shape)
 
-    # Determine the sequence length based on the shape
     if len(all_real_data.shape) == 3:
         # Shape: (num_samples, channels, seq_length)
         seq_length = all_real_data.shape[2]
@@ -31,7 +30,7 @@ def evaluate_gan(generator, all_real_data, device, save_path, latent_dim=256):
 
     # Adjust generated data shape for evaluation
     if isinstance(generator, LSTMGenerator):
-        generated_data = generated_data.permute(0, 2, 1)  # Shape: (num_samples, output_channels, seq_length)
+        generated_data = generated_data.permute(0, 2, 1) 
 
     # Flatten the real and generated data
     flattened_real_data = all_real_data.numpy().flatten()
@@ -42,7 +41,7 @@ def evaluate_gan(generator, all_real_data, device, save_path, latent_dim=256):
     positive_generated_data = flattened_generated_data[flattened_generated_data > 0]
 
     # Compute the log of positive data
-    log_positive_real_data = np.log(positive_real_data + 1e-8)  # Add epsilon to prevent log(0)
+    log_positive_real_data = np.log(positive_real_data + 1e-8) 
     log_positive_generated_data = np.log(positive_generated_data + 1e-8)
 
     # Determine the range for the bins

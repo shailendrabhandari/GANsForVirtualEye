@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: GANsforVirtualEye
-Version: 0.1.5
+Version: 0.1.6
 Summary: This package provides an implementation of Generative Adversarial Networks (GANs) for time series generation, with flexible architecture options. Users can select different combinations of generator and discriminator models, including Convolutional Neural Networks (CNN) and Long Short-Term Memory networks (LSTM), to suit their specific needs.
 Home-page: https://github.com/shailendrabhandari/GANsForVirtualEye.git
 Author: Shailendra Bhandari
@@ -77,4 +77,3 @@ Detailed documentation is available at [Read the Docs](https://gansforvirtualeye
 
 ---
 
-Thank you for using GANsForVirtualEye! Your feedback is valuable to us.

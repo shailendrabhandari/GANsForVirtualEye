@@ -16,7 +16,7 @@ class VelocityDataset(Dataset):
     def __getitem__(self, idx):
         sample = self.sequences[idx]
         sample = torch.from_numpy(sample).float()  
-        sample = sample.unsqueeze(0)  # Add channel dimension
+        sample = sample.unsqueeze(0)
         return sample
 
 def load_and_preprocess_data(folder_path, remove_first_n_points=250, remove_nanbefore=250):

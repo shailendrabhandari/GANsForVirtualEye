@@ -94,7 +94,7 @@ class LSTMGenerator(nn.Module):
 
         out, _ = self.lstm(x, (h_0, c_0))
         out = self.linear(out)
-        return out  # Shape: (batch_size, seq_length, output_channels)
+        return out  
 
 # LSTM Discriminator
 class LSTMDiscriminator(nn.Module):

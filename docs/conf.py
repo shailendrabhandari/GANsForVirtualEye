@@ -12,7 +12,7 @@ sys.path.insert(0, os.path.abspath(".."))
 project = "GANsForVirtualEye"
 copyright = "2024, Shailendra Bhandari"
 author = "Shailendra Bhandari"
-release = "13/11/2024"  # Version or release date
+release = "3/12/2024"  # Version or release date
 
 # -- General configuration ---------------------------------------------------
 extensions = [

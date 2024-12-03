@@ -211,20 +211,6 @@ Dependencies
 
 ---
 
-Contributing
-============
-
-Contributions are welcome! Please follow these steps:
-
-1. **Fork the Repository**.
-2. **Clone Your Fork**.
-3. **Create a New Branch**.
-4. **Make Changes and Commit**.
-5. **Push to Your Fork**.
-6. **Submit a Pull Request**.
-
----
-
 License
 =======
 
@@ -235,11 +221,9 @@ This project is licensed under the MIT License.
 Contact
 =======
 
-For questions or suggestions, please contact:
-
 - **Shailendra Bhandari**
 - **Email**: shailendra.bhandari@oslomet.no
-- **GitHub**: `shailendrabhandari <https://github.com/shailendrabhandari>`
+- **GitHub**: https://github.com/shailendrabhandari
 
 ---
 

@@ -102,7 +102,7 @@ Steps
 Usage
 =====
 
-The package can be used by running the `main.py` script, which orchestrates the data loading, model training, and evaluation processes.
+The package can be used by running the `main.py` script, which facilates the data loading, model training, and evaluation processes.
 
 Command-Line Arguments
 ----------------------
@@ -243,34 +243,6 @@ For questions or suggestions, please contact:
 
 ---
 
-Acknowledgments
-===============
-
-- Thank you to all contributors and the AI lab teams who helped improve this package.
-- Inspired by research on GANs for time series generation.
-
----
-
-Frequently Asked Questions (FAQ)
-================================
-
-1. **What types of data can I use with this package?**
-
-   This package is designed for time series data, specifically sequences of numerical values like velocities. While tailored for time series, it can be extended for other types of sequential data with modifications.
-
-2. **Can I add new models to the package?**
-
-   Yes! The package is modular, allowing you to add new generator and discriminator models. Ensure they are properly defined in `models.py` and included in the `get_generator` and `get_discriminator` functions.
-
-3. **How do I adjust the sequence length or number of sequences?**
-
-   Modify the `sequence_length` and `num_sequences` parameters in the `prepare_datasets` function within `dataloader.py`.
-
-4. **How do I know if the models are training correctly?**
-
-   Monitor the loss values and JS divergence during training. Decreasing loss values indicate learning. Additionally, examine the evaluation plots for confirmation.
-
----
 
 Thank You for Using GAN Time Series Generation Package!
 =======================================================

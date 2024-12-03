@@ -1,6 +1,6 @@
-====================================================
+==================================================
 GANsForVirtualEye: Time Series Generation Package
-====================================================
+==================================================
 
 This package provides an implementation of Generative Adversarial Networks (GANs) for time series generation, with flexible architecture options. Users can select different combinations of generator and discriminator models, including Convolutional Neural Networks (CNN) and Long Short-Term Memory networks (LSTM), to suit their specific needs.
 

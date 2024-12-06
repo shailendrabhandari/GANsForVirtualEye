@@ -54,4 +54,26 @@ Detailed documentation is available at [Read the Docs](https://gansforvirtualeye
   [GitHub](https://github.com/shailendrabhandari) | [Email](mailto:shailendra.bhandari@oslomet.no)
 
 ---
+## Citation
+
+If you use this package in your research or projects, please cite it as:
+
+```bibtex
+@misc{bhandari2024modelingeyegazevelocity,
+      title={Modeling Eye Gaze Velocity Trajectories using GANs with Spectral Loss for Enhanced Fidelity}, 
+      author={Shailendra Bhandari and Pedro Lencastre and Rujeena Mathema and Alexander Szorkovszky and Anis Yazidi and Pedro Lind},
+      year={2024},
+      eprint={2412.04184},
+      archivePrefix={arXiv},
+      primaryClass={cs.NE},
+      url={https://arxiv.org/abs/2412.04184}, 
+}
+```
+---
+
+## Acknowledgment
+
+Thank You for Using GAN Time Series Generation Package!
+
+We hope this package helps you in your research or projects involving time series data generation.
 

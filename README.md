@@ -59,15 +59,18 @@ Detailed documentation is available at [Read the Docs](https://gansforvirtualeye
 If you use this package in your research or projects, please cite it as:
 
 ```bibtex
-@misc{bhandari2024modelingeyegazevelocity,
-      title={Modeling Eye Gaze Velocity Trajectories using GANs with Spectral Loss for Enhanced Fidelity}, 
-      author={Shailendra Bhandari and Pedro Lencastre and Rujeena Mathema and Alexander Szorkovszky and Anis Yazidi and Pedro Lind},
-      year={2024},
-      eprint={2412.04184},
-      archivePrefix={arXiv},
-      primaryClass={cs.NE},
-      url={https://arxiv.org/abs/2412.04184}, 
+@article{bhandari2025modeling,
+  title = {Modeling eye gaze velocity trajectories using {GANs} with spectral loss for enhanced fidelity},
+  author = {Bhandari, S. and Lencastre, P. and Mathema, R. and others},
+  journal = {Scientific Reports},
+  volume = {15},
+  pages = {19929},
+  year = {2025},
+  publisher = {Nature Publishing Group},
+  doi = {10.1038/s41598-025-05286-5},
+  url = {https://doi.org/10.1038/s41598-025-05286-5}
 }
+
 ```
 ---
 

@@ -98,7 +98,7 @@ def load_and_preprocess_data(folder_path, remove_first_n_points=250, remove_nanb
 
     return vS_all
 
-def prepare_datasets(vS_all, sequence_length=200, num_sequences=11000, batch_size=128):
+def prepare_datasets(vS_all, sequence_length=2000, num_sequences=11000, batch_size=128): ##recommend to try with different sequence lengths, we tested it with max4000
     # Ensure vS_all is available and handle any NaNs
     if len(vS_all) == 0:
         raise ValueError("No velocities available.")
